@@ -8,5 +8,7 @@
 
     <h1>Witaj ${name} ${surname} </h1>
 
+    <h2>${students[0]}</h2>
+
     </body>
 </html>

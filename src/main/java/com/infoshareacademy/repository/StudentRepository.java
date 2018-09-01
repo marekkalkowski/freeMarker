@@ -24,4 +24,15 @@ public class StudentRepository {
     public List<Student> getStudents() {
         return students;
     }
+
+    public Student getById (Integer id){
+
+        for (Student student : students) {
+            if(student.getId().equals(id)){
+                return student;
+            }
+
+        }
+        return null;
+    }
 }

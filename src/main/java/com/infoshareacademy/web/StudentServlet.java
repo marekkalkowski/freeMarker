@@ -1,6 +1,7 @@
 package com.infoshareacademy.web;
 
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.model.Student;
 import com.infoshareacademy.repository.StudentRepository;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,32 +16,40 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet (urlPatterns = "/Welcome")
-public class WelcomeServlet extends HttpServlet {
 
-    private Map<String, Object> dataModel = new HashMap<>();
-
-    @Inject
-    StudentRepository studentRepository;
+@WebServlet (urlPatterns = "/student")
+public class StudentServlet extends HttpServlet {
 
     @Inject
-    private TemplateProvider templateProvider;
+    TemplateProvider templateProvider;
+
+    @Inject
+    private StudentRepository studentRepository;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        dataModel.put("name","Marek");
-        dataModel.put("surname","Kalkowski");
 
-        Template template = templateProvider.getTemplate(getServletContext(),"welcome-user");
+        String idStr = req.getParameter("id");
+        Integer id = Integer.valueOf(idStr);
+
+        Student student = studentRepository.getById(id);
+
+        Map<String,Object> dataModel = new HashMap<>();
+        dataModel.put("student",student);
+//        dataModel.put("surname",student.getLastName());
+//        dataModel.put("active",student.isActive());
+
+
+        //resp.getWriter().println(student.toString());
+
+
+        Template template = templateProvider.getTemplate(getServletContext(),"student");
 
         try {
             template.process(dataModel,resp.getWriter());
         } catch (TemplateException e) {
             e.printStackTrace();
         }
-
     }
 }
-
-
