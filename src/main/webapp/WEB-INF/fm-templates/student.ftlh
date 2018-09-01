@@ -6,6 +6,7 @@
 </head>
 <body>
 
+
 <h1>Witaj </h1>
 
 <h2>${student.firstName?upper_case}  ${student.lastName}
@@ -25,5 +26,6 @@
 
 <a href="students">powrót</a>
 
+<#include "footer.ftlh">
 </body>
 </html>

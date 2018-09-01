@@ -51,6 +51,7 @@
 
 </#list>
 
+<#include "footer.ftlh">
 
 </body>
 </html>
